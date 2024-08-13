@@ -1,0 +1,9 @@
+import requests
+from bs4 import BeautifulSoup as bs
+adres='https://www.hepsiemlak.com/sisli-kiralik-2-1'
+baslik={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'}
+sayfa=requests.get(adres, headers=baslik)
+soup=bs(sayfa.content, features='lxml')
+fiyatlar=soup.find_all('span', {'class':'list-view-price'})
+for fiyat in fiyatlar:
+    print(int(fiyat.text[:-2].replace('.','')))
